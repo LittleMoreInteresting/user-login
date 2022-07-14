@@ -1,0 +1,11 @@
+Name: userlogin-api
+Host: 0.0.0.0
+Port: 8888
+Mysql:
+  DataSource: root:123456@tcp(mysql:3306)/user?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
+
+CacheRedis:
+  - Host: redis:6379
+    Type: node
+
+Salt: DWe7OZf6KPlnv7yy

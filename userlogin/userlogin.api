@@ -1,0 +1,20 @@
+syntax = "v1"
+
+type (
+	RegisterRequest {
+		Name     string `json:"name"`
+		Email    string `json:"email"`
+		Password string `json:"password"`
+	}
+
+	RegisterResponse {
+		ID    int    `json:"id"`
+		Name  string `json:"name"`
+		Email string `json:"email"`
+	}
+)
+
+service userlogin-api {
+	@handler RegisterHandler
+	post /api/register(RegisterRequest) returns (RegisterResponse);
+}
