@@ -12,9 +12,22 @@ type (
 		Name  string `json:"name"`
 		Email string `json:"email"`
 	}
+
+	LoginRequest {
+		Email    string `json:"email"`
+		Password string `json:"password"`
+	}
+
+	LoginResponse {
+		Token  string `json:"token"`
+		Expire int64  `json:"expire"`
+	}
 )
 
 service userlogin-api {
 	@handler RegisterHandler
 	post /api/register(RegisterRequest) returns (RegisterResponse);
+	
+	@handler LoginHandler
+	post /api/login(LoginRequest) returns (LoginResponse);
 }

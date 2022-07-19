@@ -13,4 +13,8 @@ type Config struct {
 
 	CacheRedis cache.CacheConf
 	Salt       string
+	Auth       struct {
+		AccessSecret string
+		AccessExpire int64
+	}
 }
