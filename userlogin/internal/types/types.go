@@ -22,3 +22,9 @@ type LoginResponse struct {
 	Token  string `json:"token"`
 	Expire int64  `json:"expire"`
 }
+
+type UserInfoResponse struct {
+	ID    int64  `json:"id"`
+	Name  string `json:"name"`
+	Email string `json:"email"`
+}

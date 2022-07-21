@@ -22,6 +22,12 @@ type (
 		Token  string `json:"token"`
 		Expire int64  `json:"expire"`
 	}
+
+	UserInfoResponse {
+		ID    int64  `json:"id"`
+		Name  string `json:"name"`
+		Email string `json:"email"`
+	}
 )
 
 service userlogin-api {
@@ -30,4 +36,12 @@ service userlogin-api {
 	
 	@handler LoginHandler
 	post /api/login(LoginRequest) returns (LoginResponse);
+}
+
+@server(
+	jwt: Auth
+)
+service userlogin-api {
+	@handler UserInfo
+	get /api/userinfo returns (UserInfoResponse)
 }
