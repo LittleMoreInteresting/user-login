@@ -28,3 +28,7 @@ type UserInfoResponse struct {
 	Name  string `json:"name"`
 	Email string `json:"email"`
 }
+
+type TagResponse struct {
+	Tag string `json:"tag"`
+}

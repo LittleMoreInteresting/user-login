@@ -28,6 +28,10 @@ type (
 		Name  string `json:"name"`
 		Email string `json:"email"`
 	}
+
+	TagResponse {
+		Tag string `json:"tag"`
+	}
 )
 
 service userlogin-api {
@@ -40,9 +44,16 @@ service userlogin-api {
 
 @server(
 	jwt: Auth
-	middleware : Admin
 )
 service userlogin-api {
 	@handler UserInfo
 	get /api/userinfo returns (UserInfoResponse)
+}
+
+@server(
+	middleware : Tagging
+)
+service userlogin-api {
+	@handler Tags
+	get /api/tags returns (TagResponse)
 }

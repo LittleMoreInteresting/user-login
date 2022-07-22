@@ -2,13 +2,15 @@ package svc
 
 import (
 	"github.com/zeromicro/go-zero/core/stores/sqlx"
+	"github.com/zeromicro/go-zero/rest"
 	"user-login/userlogin/internal/config"
+	"user-login/userlogin/internal/middleware"
 	"user-login/userlogin/model/user"
 )
 
 type ServiceContext struct {
-	Config config.Config
-
+	Config    config.Config
+	Tagging   rest.Middleware
 	UserModel user.UserModel
 }
 
@@ -18,5 +20,6 @@ func NewServiceContext(c config.Config) *ServiceContext {
 	return &ServiceContext{
 		Config:    c,
 		UserModel: user.NewUserModel(conn, c.CacheRedis),
+		Tagging:   middleware.NewTaggingMiddleware().Handle,
 	}
 }

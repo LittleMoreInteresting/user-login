@@ -35,4 +35,17 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 		},
 		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
 	)
+
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.Tagging},
+			[]rest.Route{
+				{
+					Method:  http.MethodGet,
+					Path:    "/api/tags",
+					Handler: TagsHandler(serverCtx),
+				},
+			}...,
+		),
+	)
 }
