@@ -16,3 +16,7 @@ Auth:
 LogConf:
   Mode: file
   
+
+LogConf:
+  Mode: file
+  
