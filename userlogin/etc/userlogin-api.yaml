@@ -12,3 +12,7 @@ Salt: DWe7OZf6KPlnv7yy
 Auth:
   AccessSecret: uOvKLmVfztaXGpNYd4Z0I1SiT7MweJhl
   AccessExpire: 86400
+
+LogConf:
+  Mode: file
+  

@@ -7,7 +7,7 @@ import (
 	"user-login/userlogin/common/cryptx"
 	"user-login/userlogin/internal/svc"
 	"user-login/userlogin/internal/types"
-	"user-login/userlogin/model"
+	"user-login/userlogin/model/user"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -32,10 +32,10 @@ func (l *RegisterLogic) Register(req *types.RegisterRequest) (resp *types.Regist
 	if err == nil {
 		return nil, status.Error(100, "该用户已存在")
 	}
-	if err != model.ErrNotFound {
+	if err != user.ErrNotFound {
 		return nil, status.Error(100, err.Error())
 	}
-	newUser := model.User{
+	newUser := user.User{
 		Name:     req.Name,
 		Email:    req.Email,
 		Password: cryptx.PasswordEncrypt(l.svcCtx.Config.Salt, req.Password),

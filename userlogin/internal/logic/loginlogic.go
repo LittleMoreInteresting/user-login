@@ -9,7 +9,7 @@ import (
 	"user-login/userlogin/common/jwtx"
 	"user-login/userlogin/internal/svc"
 	"user-login/userlogin/internal/types"
-	"user-login/userlogin/model"
+	"user-login/userlogin/model/user"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -31,7 +31,7 @@ func NewLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LoginLogic 
 func (l *LoginLogic) Login(req *types.LoginRequest) (resp *types.LoginResponse, err error) {
 	res, err := l.svcCtx.UserModel.FindOneByEmail(l.ctx, req.Email)
 	if err != nil {
-		if err == model.ErrNotFound {
+		if err == user.ErrNotFound {
 			return nil, status.Error(100, "用户不存在")
 		}
 		return nil, status.Error(500, err.Error())
