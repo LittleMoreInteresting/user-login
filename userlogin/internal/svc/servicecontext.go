@@ -11,6 +11,7 @@ import (
 type ServiceContext struct {
 	Config    config.Config
 	Tagging   rest.Middleware
+	Version   rest.Middleware
 	UserModel user.UserModel
 }
 
@@ -21,5 +22,6 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		Config:    c,
 		UserModel: user.NewUserModel(conn, c.CacheRedis),
 		Tagging:   middleware.NewTaggingMiddleware().Handle,
+		Version:   middleware.NewVersionMiddleware().Handle,
 	}
 }

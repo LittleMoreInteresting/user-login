@@ -38,7 +38,7 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 
 	server.AddRoutes(
 		rest.WithMiddlewares(
-			[]rest.Middleware{serverCtx.Tagging},
+			[]rest.Middleware{serverCtx.Tagging, serverCtx.Version},
 			[]rest.Route{
 				{
 					Method:  http.MethodGet,

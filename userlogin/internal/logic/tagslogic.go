@@ -25,7 +25,7 @@ func NewTagsLogic(ctx context.Context, svcCtx *svc.ServiceContext) *TagsLogic {
 }
 
 func (l *TagsLogic) Tags() (resp *types.TagResponse, err error) {
-	s := fmt.Sprintf("%s", l.ctx.Value("tag"))
+	s := fmt.Sprintf("%s--%s", l.ctx.Value("tag"), l.ctx.Value("version"))
 	return &types.TagResponse{
 		Tag: s,
 	}, nil

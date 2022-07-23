@@ -51,7 +51,7 @@ service userlogin-api {
 }
 
 @server(
-	middleware : Tagging
+	middleware : Tagging,Version
 )
 service userlogin-api {
 	@handler Tags
