@@ -6,6 +6,8 @@ import (
 	"net/http"
 
 	"github.com/zeromicro/go-zero/core/logx"
+	"github.com/zeromicro/go-zero/rest/httpx"
+	"user-login/userlogin/common/response"
 	"user-login/userlogin/internal/config"
 	"user-login/userlogin/internal/handler"
 	"user-login/userlogin/internal/svc"
@@ -23,7 +25,12 @@ func main() {
 	var c config.Config
 	conf.MustLoad(*configFile, &c)
 	logx.MustSetup(c.LogConf)
-	server := rest.MustNewServer(c.RestConf)
+
+	unauthorized := rest.WithUnauthorizedCallback(func(w http.ResponseWriter, r *http.Request, err error) {
+		httpx.WriteJson(w, http.StatusOK, response.Error(http.StatusUnauthorized, err.Error()))
+	})
+
+	server := rest.MustNewServer(c.RestConf, unauthorized)
 	defer server.Stop()
 	server.Use(func(next http.HandlerFunc) http.HandlerFunc {
 		return func(writer http.ResponseWriter, request *http.Request) {

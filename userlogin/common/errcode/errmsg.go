@@ -21,9 +21,6 @@ func MapErrMsg(errcode uint32) string {
 }
 
 func IsCodeErr(errcode uint32) bool {
-	if _, ok := message[errcode]; ok {
-		return true
-	} else {
-		return false
-	}
+	_, ok := message[errcode]
+	return ok
 }
