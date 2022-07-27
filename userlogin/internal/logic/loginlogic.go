@@ -3,8 +3,8 @@ package logic
 import (
 	"context"
 	"time"
+	"user-login/userlogin/common/errorx"
 
-	"google.golang.org/grpc/status"
 	"user-login/userlogin/common/cryptx"
 	"user-login/userlogin/common/jwtx"
 	"user-login/userlogin/internal/svc"
@@ -32,21 +32,21 @@ func (l *LoginLogic) Login(req *types.LoginRequest) (resp *types.LoginResponse, 
 	res, err := l.svcCtx.UserModel.FindOneByEmail(l.ctx, req.Email)
 	if err != nil {
 		if err == user.ErrNotFound {
-			return nil, status.Error(100, "用户不存在")
+			return nil, errorx.NewDefaultError("用户不存在")
 		}
-		return nil, status.Error(500, err.Error())
+		return nil, errorx.NewCodeError(errorx.DBErrorCode, err.Error())
 	}
 	// 判断密码是否正确
 	password := cryptx.PasswordEncrypt(l.svcCtx.Config.Salt, req.Password)
 	if password != res.Password {
-		return nil, status.Error(100, "密码错误")
+		return nil, errorx.NewCodeError(100, "密码错误")
 	}
 	now := time.Now().Unix()
 	accessExpire := l.svcCtx.Config.Auth.AccessExpire
 
 	accessToken, err := jwtx.GetToken(l.svcCtx.Config.Auth.AccessSecret, now, accessExpire, res.Id)
 	if err != nil {
-		return nil, err
+		return nil, errorx.NewDefaultError(err.Error())
 	}
 	return &types.LoginResponse{
 		Token:  accessToken,

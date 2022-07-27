@@ -3,6 +3,7 @@ package logic
 import (
 	"context"
 	"encoding/json"
+	"user-login/userlogin/common/errorx"
 
 	"user-login/userlogin/internal/svc"
 	"user-login/userlogin/internal/types"
@@ -28,7 +29,7 @@ func (l *UserInfoLogic) UserInfo() (resp *types.UserInfoResponse, err error) {
 	uid, _ := l.ctx.Value("uid").(json.Number).Int64()
 	one, err := l.svcCtx.UserModel.FindOne(l.ctx, uid)
 	if err != nil {
-		return nil, err
+		return nil, errorx.NewDefaultError(err.Error())
 	}
 	return &types.UserInfoResponse{
 		ID:    one.Id,
