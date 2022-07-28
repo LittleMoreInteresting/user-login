@@ -2,6 +2,7 @@ package logic
 
 import (
 	"context"
+	"user-login/userlogin/common/errorx"
 
 	"google.golang.org/grpc/status"
 	"user-login/userlogin/common/cryptx"
@@ -30,7 +31,7 @@ func (l *RegisterLogic) Register(req *types.RegisterRequest) (resp *types.Regist
 
 	_, err = l.svcCtx.UserModel.FindOneByEmail(l.ctx, req.Email)
 	if err == nil {
-		return nil, status.Error(100, "该用户已存在")
+		return nil, errorx.NewCodeError(100, "该用户已存在")
 	}
 	if err != user.ErrNotFound {
 		return nil, status.Error(100, err.Error())
@@ -43,12 +44,12 @@ func (l *RegisterLogic) Register(req *types.RegisterRequest) (resp *types.Regist
 
 	res, err := l.svcCtx.UserModel.Insert(l.ctx, &newUser)
 	if err != nil {
-		return nil, status.Error(500, err.Error())
+		return nil, errorx.NewCodeError(500, err.Error())
 	}
 
 	newUser.Id, err = res.LastInsertId()
 	if err != nil {
-		return nil, status.Error(500, err.Error())
+		return nil, errorx.NewCodeError(500, err.Error())
 	}
 
 	return &types.RegisterResponse{
