@@ -1,5 +1,6 @@
 syntax = "v1"
 
+import "api/pager.api"
 type (
 	RegisterRequest {
 		Name     string `json:"name"`
@@ -30,7 +31,18 @@ type (
 	}
 
 	TagResponse {
-		Tag string `json:"tag"`
+		Id    int64  `json:"id"`
+		Name  string `json:"name"`
+		State int64  `json:"state,default=1"`
+	}
+
+	TagListRequest {
+		Name string `json:"name"`
+		Pager
+	}
+	TagListResponse {
+		List     []TagResponse `json:"list"`
+		Matedata Pager         `json:"matedata"`
 	}
 )
 
@@ -55,5 +67,5 @@ service userlogin-api {
 )
 service userlogin-api {
 	@handler Tags
-	get /api/tags returns (TagResponse)
+	get /api/tag/list(TagListRequest) returns (TagListResponse)
 }

@@ -2,7 +2,6 @@ package logic
 
 import (
 	"context"
-	"fmt"
 
 	"user-login/userlogin/internal/svc"
 	"user-login/userlogin/internal/types"
@@ -24,9 +23,8 @@ func NewTagsLogic(ctx context.Context, svcCtx *svc.ServiceContext) *TagsLogic {
 	}
 }
 
-func (l *TagsLogic) Tags() (resp *types.TagResponse, err error) {
-	s := fmt.Sprintf("%s--%s", l.ctx.Value("tag"), l.ctx.Value("version"))
-	return &types.TagResponse{
-		Tag: s,
-	}, nil
+func (l *TagsLogic) Tags(req *types.TagListRequest) (resp *types.TagListResponse, err error) {
+	// todo: add your logic here and delete this line
+
+	return
 }

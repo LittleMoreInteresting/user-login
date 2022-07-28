@@ -30,5 +30,27 @@ type UserInfoResponse struct {
 }
 
 type TagResponse struct {
-	Tag string `json:"tag"`
+	Id    int64  `json:"id"`
+	Name  string `json:"name"`
+	State int64  `json:"state,default=1"`
+}
+
+type TagListRequest struct {
+	Name string `json:"name"`
+	Pager
+}
+
+type TagListResponse struct {
+	List     []TagResponse `json:"list"`
+	Matedata Pager         `json:"matedata"`
+}
+
+type Pager struct {
+	Page      int `json:"page,default=1"`
+	PageSize  int `json:"page_size,default=10"`
+	TotalSize int `json:"total_size"`
+}
+
+func (p *Pager) Offsite() int {
+	return (p.Page - 1) * p.PageSize
 }
