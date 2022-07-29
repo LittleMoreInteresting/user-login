@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"net/http"
+
 	"user-login/userlogin/common/errorx"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -31,7 +32,9 @@ func main() {
 		case *errorx.CodeError:
 			return http.StatusOK, e.Data()
 		default:
-			return http.StatusInternalServerError, nil
+			logx.Error(e)
+			err := errorx.NewCodeError(http.StatusInternalServerError, e.Error()).(*errorx.CodeError)
+			return http.StatusOK, err.Data()
 		}
 	})
 

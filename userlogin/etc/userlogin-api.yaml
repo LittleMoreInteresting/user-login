@@ -14,7 +14,7 @@ Auth:
   AccessExpire: 86400
 
 LogConf:
-  Mode: file
+  Mode: console
 
 Telemetry:
     Name: user.api

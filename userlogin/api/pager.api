@@ -4,7 +4,7 @@ type (
     Pager {
         Page int `json:"page,default=1"`
         PageSize int `json:"page_size,default=10"`
-        TotalSize int `json:"total_size"`
+        TotalSize int `json:"total_size,default=0"`
     }
 )
 

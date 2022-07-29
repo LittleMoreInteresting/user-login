@@ -36,7 +36,7 @@ type TagResponse struct {
 }
 
 type TagListRequest struct {
-	Name string `json:"name"`
+	Name string `json:"name,optional"`
 	Pager
 }
 
@@ -48,7 +48,7 @@ type TagListResponse struct {
 type Pager struct {
 	Page      int `json:"page,default=1"`
 	PageSize  int `json:"page_size,default=10"`
-	TotalSize int `json:"total_size"`
+	TotalSize int `json:"total_size,default=0"`
 }
 
 func (p *Pager) Offsite() int {

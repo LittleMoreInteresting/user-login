@@ -37,7 +37,7 @@ type (
 	}
 
 	TagListRequest {
-		Name string `json:"name"`
+		Name string `json:"name,optional"`
 		Pager
 	}
 	TagListResponse {
