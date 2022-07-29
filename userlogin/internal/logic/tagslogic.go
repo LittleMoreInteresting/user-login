@@ -24,7 +24,6 @@ func NewTagsLogic(ctx context.Context, svcCtx *svc.ServiceContext) *TagsLogic {
 }
 
 func (l *TagsLogic) Tags(req *types.TagListRequest) (resp *types.TagListResponse, err error) {
-	// todo: add your logic here and delete this line
 
-	return
+	return l.svcCtx.TagsModel.TagList(l.ctx, req)
 }
