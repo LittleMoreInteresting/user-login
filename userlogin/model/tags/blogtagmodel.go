@@ -35,6 +35,8 @@ func NewBlogTagModel(conn sqlx.SqlConn, c cache.CacheConf) BlogTagModel {
 func (c *customBlogTagModel) TagList(ctx context.Context, request *types.TagListRequest) (*types.TagListResponse, error) {
 	result := &types.TagListResponse{}
 	result.Matedata = request.Pager
+	countSql := fmt.Sprintf("select %s from %s where 1 ", "count(id) as total_size", c.table)
+	_ = c.QueryRowNoCacheCtx(ctx, result.Matedata, countSql)
 	sql := fmt.Sprintf("select %s from %s where 1  limit %d,%d",
 		blogTagRows, c.table, request.Pager.Offsite(), request.PageSize)
 	err := c.QueryRowsNoCacheCtx(ctx, result, sql)
