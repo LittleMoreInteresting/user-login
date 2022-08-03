@@ -2,9 +2,10 @@ syntax = "v1"
 
 type (
     Pager {
-        Page int `json:"page,default=1"`
-        PageSize int `json:"page_size,default=10"`
-        TotalSize int `json:"total_size,default=0"`
+        Page int `form:"page,default=1"`
+        PageSize int `form:"page_size,default=10"`
+        TotalSize int `form:"total_size,default=0"`
     }
 )
+
 

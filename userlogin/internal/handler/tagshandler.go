@@ -21,7 +21,7 @@ func TagsHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 		l := logic.NewTagsLogic(r.Context(), svcCtx)
 		resp, err := l.Tags(&req)
 		if err != nil {
-			logx.Info(err)
+			logx.Error(err)
 			httpx.Error(w, err)
 		} else {
 			httpx.OkJson(w, resp)

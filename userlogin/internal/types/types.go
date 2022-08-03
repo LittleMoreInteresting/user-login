@@ -36,7 +36,7 @@ type TagResponse struct {
 }
 
 type TagListRequest struct {
-	Name string `json:"name,optional"`
+	Name string `form:"name,optional"`
 	Pager
 }
 
@@ -46,11 +46,7 @@ type TagListResponse struct {
 }
 
 type Pager struct {
-	Page      int `json:"page,default=1"`
-	PageSize  int `json:"page_size,default=10"`
-	TotalSize int `json:"total_size,default=0"`
-}
-
-func (p *Pager) Offsite() int {
-	return (p.Page - 1) * p.PageSize
+	Page      int `form:"page,default=1"`
+	PageSize  int `form:"page_size,default=10"`
+	TotalSize int `form:"total_size,default=0"`
 }
